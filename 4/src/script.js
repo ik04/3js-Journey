@@ -57,7 +57,12 @@ camera.position.z = 3;
 camera.lookAt(mesh.position);
 scene.add(camera);
 
+// controls
 const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+// * updates where the control looks
+// controls.target.y = -1;
+// controls.update();
 
 /**
  * Renderer
@@ -77,6 +82,10 @@ const tick = () => {
   // camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3;
   // camera.position.y = cursor.y * 5;
   // camera.lookAt(mesh.position);
+
+  // * updated controls for damping
+  controls.update();
+  // ! read docs for knowledge
 
   renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
