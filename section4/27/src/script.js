@@ -32,6 +32,7 @@ const ImageTextures = [
   { name: "targaryen.jpg", words: "Fire And Blood" },
   { name: "vale.jpg", words: "As High as Honour" },
   { name: "tyrell.jpg", words: "Growing Stronger" },
+  { name: "martell.jpg", words: "Unbowed, Unbent, Unbroken" },
 ];
 
 const textures = [];
@@ -108,7 +109,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   100
 );
-camera.position.set(0.25, -0.25, 1.5);
+camera.position.set(0.25, 0.25, 1.5);
 scene.add(camera);
 
 // Controls
