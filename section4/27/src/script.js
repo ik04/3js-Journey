@@ -20,11 +20,30 @@ const scene = new THREE.Scene();
  * Textures
  */
 const textureLoader = new THREE.TextureLoader();
-const flagTexture = textureLoader.load("/textures/flag.jpg");
-const baratheonTexture = textureLoader.load("/textures/baratheon.jpg");
-const starkTexture = textureLoader.load("/textures/stark.jpg");
+// const flagTexture = textureLoader.load("/textures/flag.jpg");
+// const baratheonTexture = textureLoader.load("/textures/baratheon.jpg");
+// const starkTexture = textureLoader.load("/textures/stark.jpg");
+// const targTexture = textureLoader.load("/textures/targaryen.jpg");
 
-const textures = [flagTexture, baratheonTexture, starkTexture];
+const ImageTextures = [
+  { name: "flag.jpg", words: "Hear Me Roar" },
+  { name: "baratheon.jpg", words: "Ours is the Fury" },
+  { name: "stark.jpg", words: "Winter Is Coming" },
+  { name: "targaryen.jpg", words: "Fire And Blood" },
+  { name: "vale.jpg", words: "As High as Honour" },
+  { name: "tyrell.jpg", words: "Growing Stronger" },
+];
+
+const textures = [];
+
+ImageTextures.forEach((texture) => {
+  textures.push({
+    texture: textureLoader.load("/textures/" + texture.name),
+    words: texture.words,
+  });
+});
+
+//const textures = [flagTexture, baratheonTexture, starkTexture, targTexture];
 /**
  * Test mesh
  */
@@ -55,6 +74,7 @@ const material = new THREE.ShaderMaterial({
 // Mesh
 const mesh = new THREE.Mesh(geometry, material);
 mesh.scale.y = 2 / 3;
+mesh.position.y = 0.2;
 scene.add(mesh);
 /**
  * Sizes
@@ -88,7 +108,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   100
 );
-camera.position.set(0.25, -0.25, 1);
+camera.position.set(0.25, -0.25, 1.5);
 scene.add(camera);
 
 // Controls
@@ -100,15 +120,23 @@ controls.enableDamping = true;
  */
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
+  alpha: true,
 });
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 // * Flag Switch
 let currentIndex = 0;
+const words = document.getElementById("words");
+window.addEventListener("load", function () {
+  alert("Double click to switch flags!");
+  material.uniforms.uTexture.value = textures[currentIndex].texture;
+  words.textContent = textures[currentIndex].words;
+});
 document.addEventListener("dblclick", function () {
   currentIndex = (currentIndex + 1) % textures.length;
-  material.uniforms.uTexture.value = textures[currentIndex];
+  material.uniforms.uTexture.value = textures[currentIndex].texture;
+  words.textContent = textures[currentIndex].words;
 });
 
 /**

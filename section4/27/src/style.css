@@ -1,19 +1,34 @@
-*
-{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
-
+@font-face {
+  font-family: "GOT";
+  src: url("../static/fonts/gotfont/got.ttf") format("truetype"),
+    url("../static/fonts/gotfont/got.ttf") format("woff");
+}
 html,
-body
-{
-    overflow: hidden;
+body {
+  background-image: url("../static//assets/got.jpg");
+  overflow: hidden;
 }
 
-.webgl
-{
-    position: fixed;
-    top: 0;
-    left: 0;
-    outline: none;
+.section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#words {
+  margin-top: 20rem;
+  font-family: "GOT", sans-serif;
+  font-size: x-large;
+  color: 67331E;
+}
+
+.webgl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
 }
