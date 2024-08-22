@@ -18,6 +18,9 @@ const scene = new THREE.Scene();
  * Galaxy
  */
 
+const axes = new THREE.AxesHelper();
+// scene.add(axes);
+
 let material = null;
 let geometry = null;
 let points = null;
@@ -25,11 +28,11 @@ const parameters = {};
 parameters.count = 100000;
 parameters.size = 0.02;
 parameters.radius = 5;
-parameters.branches = 3;
+parameters.branches = 4;
 parameters.spin = 1;
 parameters.randomness = 0.2;
 parameters.randomnessPower = 3;
-parameters.insideColor = "#ff6030";
+parameters.insideColor = "#a51d2d";
 parameters.outsideColor = "#1b3984";
 const generateGalaxy = () => {
   if (points != null) {
@@ -138,7 +141,6 @@ gui
   .onFinishChange(generateGalaxy);
 gui.addColor(parameters, "insideColor").onFinishChange(generateGalaxy);
 gui.addColor(parameters, "outsideColor").onFinishChange(generateGalaxy);
-
 generateGalaxy();
 
 /**
@@ -190,7 +192,10 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
+gui.add(points.position, "x");
+gui.add(points.position, "y");
+gui.add(points.position, "z");
+points.rotation.x = 0.5;
 /**
  * Animate
  */
@@ -198,7 +203,7 @@ const clock = new THREE.Clock();
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
-
+  points.rotation.y = elapsedTime * 0.1;
   // Update controls
   controls.update();
 
