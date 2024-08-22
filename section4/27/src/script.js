@@ -21,6 +21,9 @@ const scene = new THREE.Scene();
  */
 const textureLoader = new THREE.TextureLoader();
 const flagTexture = textureLoader.load("/textures/flag.jpg");
+const baratheonTexture = textureLoader.load("/textures/baratheon.jpg");
+
+const textures = [flagTexture, baratheonTexture];
 /**
  * Test mesh
  */
@@ -43,7 +46,8 @@ const material = new THREE.ShaderMaterial({
     uFrequency: { value: new THREE.Vector2(10, 5), type: "vec2" },
     uTime: { value: 0 },
     uColor: { value: new THREE.Color("orange") },
-    uTexture: { value: flagTexture },
+    uTexture: { value: textures[0] },
+    uSpeed: { value: 3.0 },
   },
 });
 
@@ -98,6 +102,13 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+// * Flag Switch
+let currentIndex = 0;
+document.addEventListener("dblclick", function () {
+  currentIndex = (currentIndex + 1) % textures.length;
+  material.uniforms.uTexture.value = textures[currentIndex];
+});
 
 /**
  * Animate
