@@ -22,8 +22,9 @@ const scene = new THREE.Scene();
 const textureLoader = new THREE.TextureLoader();
 const flagTexture = textureLoader.load("/textures/flag.jpg");
 const baratheonTexture = textureLoader.load("/textures/baratheon.jpg");
+const starkTexture = textureLoader.load("/textures/stark.jpg");
 
-const textures = [flagTexture, baratheonTexture];
+const textures = [flagTexture, baratheonTexture, starkTexture];
 /**
  * Test mesh
  */
